@@ -54,7 +54,7 @@ const styles = ({ spacing }) => createStyles({
 	},
 });
 
-const URLPREFIX = 'http://';
+const URLPREFIX = 'https://';
 const STATUS = {
 	Idle: 0,
 	Connecting: 1,
@@ -89,7 +89,6 @@ class AddAccount extends React.Component<any, any> {
 		const { url, jid, password } = this.state;
 		const domain = this.getDomainFromJid(jid);
 
-		//@TODO use util from jsxc
 		(window as any).JSXC.testBOSHServer(url, domain)
 			.then(() => {
 				return this.props.jsxc.start(url, jid, password);
