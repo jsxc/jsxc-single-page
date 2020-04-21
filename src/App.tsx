@@ -58,6 +58,9 @@ class App extends React.Component {
 			},
 		});
 
+		// bootstrap ui
+		this.jsxc.start();
+
 		let accountManager = AccountManager.get(this.jsxc);
 		let connectionWatcher = new ConnectionWatcher(
 			jid => accountManager.connect(jid),
