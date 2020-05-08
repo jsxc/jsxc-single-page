@@ -1,8 +1,8 @@
 {
   "name": "@jsxc/single-page",
   "version": "0.1.0",
-  "private": true,
   "homepage": "./",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@babel/core": "7.9.0",
     "@jsxc/jsxc": "^4.0.0",
