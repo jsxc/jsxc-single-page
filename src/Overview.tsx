@@ -122,7 +122,7 @@ class Overview extends React.Component<any, any> {
 						})}
 					</List>
 
-					<Button disabled onClick={onAddAccount}>
+					<Button onClick={onAddAccount}>
 						<AddIcon className={classes.buttonLeft} /> add account
 					</Button>
 				</div>
