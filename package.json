@@ -1,6 +1,6 @@
 {
   "name": "@jsxc/single-page",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "./",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
@@ -71,6 +71,9 @@
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "5.1.3"
   },
+  "files": [
+    "build/"
+  ],
   "scripts": {
     "start": "node scripts/start.js",
     "build": "INLINE_RUNTIME_CHUNK=false node scripts/build.js",
