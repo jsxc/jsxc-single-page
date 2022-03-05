@@ -9,15 +9,39 @@ let bodyElement = document.getElementsByTagName('body')[0];
 bodyElement.classList.add('jsxc-fullscreen');
 bodyElement.classList.add('jsxc-two-columns');
 
-if (window.location.hostname && window.location.hostname !== 'localhost') {
-    alert('This application stores passwords in the local storage. This should not be done on a website.');
+const secureHostname = process.env.SECURE_HOSTNAME ?? 'localhost';
+console.info('secure hostname', secureHostname)
+if (window.location.hostname && window.location.hostname !== secureHostname) {
+    const environmentSecurityMode = process.env.ENVIRONMENT_SECURITY_MODE ?? 'strict';
+    console.info('environment security mode', environmentSecurityMode)
+    switch (environmentSecurityMode) {
+        case 'persistent':
+            if (window.localStorage.getItem('jsxc2:security-confirmed')) {
+                break;
+            }
+            if (!window.confirm('This application stores passwords in the local storage. This should be done only if your browser is only yours and properly secured.')) {
+                throw new Error('Unsecure enviornment');
+            }
+            window.localStorage.setItem('jsxc2:security-confirmed', 'true');
+            break;
+        case 'lax':
+            if (!window.confirm('This application stores passwords in the local storage. This should be done only if your browser is only yours and properly secured.')) {
+                throw new Error('Unsecure enviornment');
+            }
+            break;
+        default: //strict
+            alert('This application stores passwords in the local storage. This should not be done on a website.');
+            throw new Error('Unsecure enviornment');
+    }
 
-    throw new Error('Unsecure enviornment');
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const useServiceWorker = process.env.SERVICE_WORKER === 'true'
+console.info('service worker', useServiceWorker)
+if (useServiceWorker) {
+    serviceWorker.register();
+} else {
+    serviceWorker.unregister();
+}
