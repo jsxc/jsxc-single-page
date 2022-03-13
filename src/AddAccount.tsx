@@ -62,10 +62,14 @@ const STATUS = {
 };
 
 class AddAccount extends React.Component<any, any> {
-	state = {
+	defaults = {
+        url: process.env.BOSH_URL ?? '',
+    }
+
+    state = {
 		status: STATUS.Idle,
 		warning: '',
-		url: '',
+		url: this.defaults.url,
 		jid: '',
 		password: '',
 	};
@@ -146,21 +150,25 @@ class AddAccount extends React.Component<any, any> {
 					/>
 
 					<form onSubmit={this.onSubmit}>
-						<TextField
-							autoFocus
-							disabled={disabled}
-							required
-							label="BOSH Url"
-							value={url}
-							onChange={this.onChange('url')}
-							InputProps={{
-								className: classes.field,
-							}}
-							InputLabelProps={{
-								className: classes.label,
-							}}
-							fullWidth
-						/>
+                        {this.defaults.url === ''
+                            ? <TextField
+                                autoFocus
+                                disabled={disabled}
+                                required
+                                label="BOSH Url"
+                                value={url}
+                                onChange={this.onChange('url')}
+                                InputProps={{
+                                    className: classes.field,
+                                }}
+                                InputLabelProps={{
+                                    className: classes.label,
+                                }}
+                                fullWidth
+                            />
+                            : ''
+                        }
+
 						<TextField
 							type="email"
 							disabled={disabled}
