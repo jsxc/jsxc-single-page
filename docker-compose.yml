@@ -7,7 +7,7 @@ x-logging:
     max-file: "10"
 services:
   jsxc:
-    image: stopka/jsxc:latest
+    image: jsxc/jsxc-single-page:latest
     build: ./
     env_file: .env.docker.local
     ports:
